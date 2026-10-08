@@ -1,0 +1,17 @@
+{
+  "control": {
+    "bulb": false,
+    "mode": "manual",
+    "ldrThreshold": 500
+  },
+
+  "current": {
+    "temperature": 28.5,
+    "humidity": 65,
+    "ldr": 700,
+    "bulb": false,
+    "mode": "manual"
+  },
+
+  "history": {}
+}

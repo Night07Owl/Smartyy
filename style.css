@@ -1,0 +1,1089 @@
+/* =========================================================================
+   SMARTYY — FIREBASE SMART HOME DESIGN SYSTEM (LIGHT ORANGE THEME)
+   Theme: Warm Peach, Sunset Amber, Firebase Flame & Crisp White Light Mode
+   ========================================================================= */
+
+:root {
+    /* Firebase & Warm Orange Palette */
+    --orange-primary: #f97316;
+    --orange-hover: #ea580c;
+    --orange-dark: #c2410c;
+    --orange-light: #fdba74;
+    --orange-soft: #ffedd5;
+    --orange-tint: rgba(249, 115, 22, 0.08);
+    --orange-text: #9a3412;
+
+    /* Firebase Brand Flame Colors */
+    --fb-yellow: #FFCA28;
+    --fb-amber: #FFA000;
+    --fb-orange: #F57C00;
+    --fb-red: #DD2C00;
+
+    /* Supporting Accent Colors */
+    --accent-blue: #0284c7;
+    --accent-blue-soft: #e0f2fe;
+    --accent-amber: #f59e0b;
+    --accent-amber-soft: #fef3c7;
+    --accent-green: #16a34a;
+    --accent-green-soft: #dcfce7;
+    --accent-coral: #ef4444;
+    --accent-coral-soft: #fee2e2;
+
+    /* Warm Light Surfaces */
+    --theme-bg: #fffbf7;
+    --theme-surface: #ffffff;
+    --theme-surface-elevated: #fff7ed;
+    --theme-surface-hover: #ffedd5;
+    --theme-surface-subtle: #fefaf6;
+
+    /* Warm Borders */
+    --theme-border: #fed7aa;
+    --theme-border-subtle: #ffedd5;
+    --theme-border-strong: #f97316;
+    --theme-border-focus: #f97316;
+
+    /* Typography Colors (High Contrast on Light Warm Background) */
+    --theme-text-high: #1c1917;
+    --theme-text-medium: #57534e;
+    --theme-text-low: #8c857e;
+    --theme-text-disabled: #a8a29e;
+
+    /* Fonts & Radii */
+    --font-brand: 'Outfit', 'Google Sans', 'Inter', -apple-system, sans-serif;
+    --font-main: 'Google Sans', 'Inter', -apple-system, sans-serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+
+    --radius-tile: 24px;
+    --radius-card: 20px;
+    --radius-button: 12px;
+    --radius-pill: 9999px;
+
+    /* Shadows */
+    --shadow-tile: 0 2px 10px rgba(249, 115, 22, 0.05), 0 8px 24px rgba(0, 0, 0, 0.03);
+    --shadow-elevated: 0 6px 20px rgba(249, 115, 22, 0.1), 0 16px 40px rgba(0, 0, 0, 0.05);
+    --shadow-btn: 0 4px 14px rgba(234, 88, 12, 0.28);
+    --shadow-glow-bulb: 0 0 28px rgba(245, 158, 11, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--theme-bg);
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--font-main);
+    color: var(--theme-text-high);
+    background: radial-gradient(circle at 12% 10%, rgba(249, 115, 22, 0.08), transparent 38%),
+                radial-gradient(circle at 88% 14%, rgba(251, 191, 36, 0.09), transparent 35%),
+                radial-gradient(circle at 50% 90%, rgba(245, 158, 11, 0.05), transparent 45%),
+                linear-gradient(180deg, #fffbf7 0%, #fef5ea 100%);
+    background-attachment: fixed;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================================
+   FIREBASE FLAME DOTS
+   ========================================================================= */
+.firebase-dots,
+.footer-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.firebase-dots {
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.footer-dots {
+    margin-bottom: 6px;
+}
+
+.f-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.firebase-dots .f-dot { width: 11px; height: 11px; }
+.footer-dots .f-dot   { width: 8px;  height: 8px; }
+
+.f-red         { background-color: var(--fb-red);         box-shadow: 0 1px 4px rgba(221, 44, 0, 0.4); }
+.f-deep-orange { background-color: var(--fb-orange);      box-shadow: 0 1px 4px rgba(245, 124, 0, 0.4); }
+.f-orange      { background-color: var(--fb-amber);       box-shadow: 0 1px 4px rgba(255, 160, 0, 0.4); }
+.f-yellow      { background-color: var(--fb-yellow);      box-shadow: 0 1px 4px rgba(255, 202, 40, 0.4); }
+
+/* =========================================================================
+   AUTHENTICATION SCREEN (LIGHT ORANGE)
+   ========================================================================= */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 440px;
+    padding: 44px 38px;
+    background: var(--theme-surface);
+    border: 1.5px solid var(--theme-border);
+    border-radius: 28px;
+    box-shadow: 0 8px 30px rgba(234, 88, 12, 0.08), 0 20px 50px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    animation: sFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.smartyy-logo-badge {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: #fff7ed;
+    border: 1.5px solid var(--theme-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.12);
+    transition: transform 0.25s ease;
+}
+
+.smartyy-logo-badge:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+.login-header h1 {
+    font-family: var(--font-brand);
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--theme-text-high);
+    letter-spacing: -0.02em;
+}
+
+.login-sub {
+    color: var(--theme-text-medium);
+    font-size: 0.92rem;
+    margin-top: 4px;
+    margin-bottom: 28px;
+}
+
+.input-field {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.input-field label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--theme-text-medium);
+    margin-bottom: 7px;
+    letter-spacing: 0.01em;
+}
+
+.input-field input {
+    width: 100%;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1.5px solid var(--theme-border);
+    border-radius: var(--radius-button);
+    color: var(--theme-text-high);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.input-field input:focus {
+    border-color: var(--orange-primary);
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.16);
+    background: #ffffff;
+}
+
+.input-field input::placeholder {
+    color: var(--theme-text-disabled);
+}
+
+.orange-btn-primary {
+    width: 100%;
+    padding: 14px 20px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-button);
+    font-family: var(--font-brand);
+    font-size: 0.98rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: var(--shadow-btn);
+    transition: all 0.2s ease;
+}
+
+.orange-btn-primary:hover {
+    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(234, 88, 12, 0.36);
+}
+
+.orange-btn-primary:active {
+    transform: translateY(0);
+}
+
+.status-msg {
+    min-height: 22px;
+    margin-top: 14px;
+    font-size: 0.86rem;
+    color: var(--fb-red);
+    font-weight: 600;
+}
+
+.login-footer-pill {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--theme-border-subtle);
+    font-size: 0.78rem;
+    color: var(--theme-text-low);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* =========================================================================
+   TOP APP BAR (SMARTYY HEADER)
+   ========================================================================= */
+.smartyy-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 36px;
+    background: rgba(255, 251, 247, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1.5px solid var(--theme-border);
+    box-shadow: 0 1px 6px rgba(249, 115, 22, 0.04);
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 2px 6px rgba(249, 115, 22, 0.2));
+}
+
+.brand-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-title-row h1 {
+    font-family: var(--font-brand);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--theme-text-high);
+    letter-spacing: -0.02em;
+}
+
+.home-chip {
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--orange-soft);
+    color: var(--orange-text);
+    border: 1px solid var(--theme-border);
+    letter-spacing: 0.02em;
+}
+
+.brand-sub {
+    font-size: 0.82rem;
+    color: var(--theme-text-medium);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.device-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: #ffffff;
+    border: 1px solid var(--theme-border);
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--theme-text-high);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 8px rgba(22, 163, 74, 0.6);
+    animation: sPulse 2s infinite;
+}
+
+.orange-btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background: #ffffff;
+    color: var(--theme-text-medium);
+    border: 1px solid var(--theme-border);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-main);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.orange-btn-logout:hover {
+    background: var(--accent-coral-soft);
+    color: var(--accent-coral);
+    border-color: rgba(239, 68, 68, 0.35);
+}
+
+/* =========================================================================
+   ROOM HERO BANNER (LIGHT ORANGE)
+   ========================================================================= */
+.smartyy-main {
+    width: 92%;
+    max-width: 1240px;
+    margin: 28px auto 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.room-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 26px 32px;
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border: 1.5px solid var(--theme-border);
+    border-radius: var(--radius-tile);
+    box-shadow: 0 4px 16px rgba(249, 115, 22, 0.06);
+}
+
+.hero-chip-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.eyebrow-chip {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--orange-dark);
+    letter-spacing: 0.04em;
+}
+
+.live-pill {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    background: #ffffff;
+    color: var(--accent-green);
+    border: 1px solid rgba(22, 163, 74, 0.25);
+}
+
+.room-hero h2 {
+    font-family: var(--font-brand);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--theme-text-high);
+    letter-spacing: -0.01em;
+}
+
+.room-hero p {
+    font-size: 0.92rem;
+    color: var(--theme-text-medium);
+    margin-top: 2px;
+}
+
+.room-quick-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.quick-chip {
+    padding: 6px 14px;
+    background: #ffffff;
+    border: 1px solid var(--theme-border);
+    border-radius: var(--radius-pill);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--theme-text-medium);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.chip-orange { color: var(--orange-hover);  border-color: var(--theme-border); background: #ffffff; }
+.chip-amber  { color: #b45309;             border-color: #fde68a;           background: #ffffff; }
+.chip-coral  { color: var(--accent-coral); border-color: #fecaca;           background: #ffffff; }
+
+/* =========================================================================
+   SECTION HEADERS
+   ========================================================================= */
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.section-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-indicator {
+    width: 4px;
+    height: 18px;
+    border-radius: 4px;
+    background: var(--orange-primary);
+}
+
+.section-title {
+    font-family: var(--font-brand);
+    font-size: 1.28rem;
+    font-weight: 700;
+    color: var(--theme-text-high);
+    letter-spacing: -0.01em;
+}
+
+.section-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 11px;
+    background: var(--orange-soft);
+    border: 1px solid var(--theme-border);
+    border-radius: var(--radius-pill);
+    color: var(--orange-text);
+}
+
+/* =========================================================================
+   SMARTYY TILES (METRIC CARDS)
+   ========================================================================= */
+.smartyy-tile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 18px;
+}
+
+.smartyy-tile {
+    position: relative;
+    padding: 24px;
+    background: var(--theme-surface);
+    border: 1.5px solid var(--theme-border-subtle);
+    border-radius: var(--radius-tile);
+    box-shadow: var(--shadow-tile);
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 165px;
+}
+
+.smartyy-tile:hover {
+    transform: translateY(-4px);
+    border-color: var(--theme-border);
+    box-shadow: var(--shadow-elevated);
+}
+
+.tile-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tile-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.smartyy-tile:hover .tile-icon-wrap {
+    transform: scale(1.08);
+}
+
+.icon-temp { background: var(--orange-soft);        color: var(--orange-hover); }
+.icon-hum  { background: var(--accent-blue-soft);   color: var(--accent-blue); }
+.icon-ldr  { background: var(--accent-amber-soft);  color: var(--accent-amber); }
+.icon-mode { background: var(--accent-green-soft);  color: var(--accent-green); }
+
+.icon-bulb {
+    background: #f4f4f5;
+    color: var(--theme-text-low);
+    transition: all 0.3s ease;
+}
+
+/* Dynamic Active Glow on Bulb Tile when ON */
+.tile-bulb.active-on {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%);
+    box-shadow: var(--shadow-glow-bulb);
+}
+
+.tile-bulb.active-on .icon-bulb {
+    background: #fde68a;
+    color: #b45309;
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.5);
+}
+
+.tile-label {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--theme-text-medium);
+}
+
+.tile-body {
+    margin-top: 14px;
+}
+
+.smartyy-tile .value {
+    font-family: var(--font-brand);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--theme-text-high);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.smartyy-tile .unit {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--theme-text-medium);
+    margin-left: 3px;
+}
+
+.tile-sub {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--theme-text-low);
+    margin-top: 6px;
+    font-family: var(--font-body);
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+/* =========================================================================
+   APPLIANCE & AUTOMATION CONTROL PANEL
+   ========================================================================= */
+.smartyy-panel {
+    background: var(--theme-surface);
+    border: 1.5px solid var(--theme-border-subtle);
+    border-radius: var(--radius-tile);
+    padding: 30px;
+    box-shadow: var(--shadow-tile);
+}
+
+.panel-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 20px;
+    border-bottom: 1.5px solid var(--theme-border-subtle);
+    margin-bottom: 24px;
+}
+
+.panel-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mini-icon-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    background: var(--orange-soft);
+}
+
+.panel-title {
+    font-family: var(--font-brand);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--theme-text-high);
+}
+
+.panel-sub {
+    font-size: 0.82rem;
+    color: var(--theme-text-medium);
+    margin-top: 2px;
+}
+
+.hub-pill {
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--orange-soft);
+    border: 1px solid var(--theme-border);
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--orange-text);
+}
+
+/* Control Grid Layout */
+.control-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 18px;
+}
+
+.smartyy-control-card {
+    background: var(--theme-surface-subtle);
+    border: 1.5px solid var(--theme-border-subtle);
+    border-radius: var(--radius-card);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    transition: all 0.2s ease;
+}
+
+.smartyy-control-card:hover {
+    border-color: var(--theme-border);
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.05);
+}
+
+.full-width-card {
+    grid-column: 1 / -1;
+}
+
+.card-meta .meta-title {
+    display: block;
+    font-family: var(--font-brand);
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--theme-text-high);
+}
+
+.card-meta .meta-desc {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--theme-text-medium);
+    margin-top: 3px;
+    font-family: var(--font-body);
+}
+
+/* Orange Select */
+.select-wrapper {
+    position: relative;
+}
+
+.smartyy-select {
+    width: 100%;
+    padding: 13px 18px;
+    background: #ffffff;
+    color: var(--theme-text-high);
+    border: 1.5px solid var(--theme-border);
+    border-radius: var(--radius-button);
+    font-family: var(--font-main);
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.smartyy-select:focus {
+    border-color: var(--orange-primary);
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.16);
+}
+
+/* Segmented ON/OFF Button Row */
+.smartyy-segmented-btns {
+    display: flex;
+    gap: 12px;
+}
+
+.smartyy-btn-toggle {
+    flex: 1;
+    padding: 13px 18px;
+    border-radius: var(--radius-button);
+    border: 1.5px solid var(--theme-border);
+    background: #ffffff;
+    color: var(--theme-text-medium);
+    font-family: var(--font-brand);
+    font-size: 0.94rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.6;
+}
+
+.smartyy-btn-toggle:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.1);
+}
+
+.btn-on:hover:not(:disabled) {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+.btn-off:hover:not(:disabled) {
+    background: var(--accent-coral-soft);
+    border-color: #fca5a5;
+    color: #b91c1c;
+}
+
+.smartyy-btn-toggle:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    background: #fafaf9;
+}
+
+/* Threshold Input Area */
+.threshold-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.threshold-input-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.num-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.smartyy-input-num {
+    width: 140px;
+    padding: 12px 42px 12px 16px;
+    background: #ffffff;
+    border: 1.5px solid var(--theme-border);
+    border-radius: var(--radius-button);
+    color: var(--theme-text-high);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.smartyy-input-num:focus {
+    border-color: var(--orange-primary);
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.16);
+}
+
+.input-unit {
+    position: absolute;
+    right: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--orange-dark);
+}
+
+.orange-btn-save {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-button);
+    font-family: var(--font-brand);
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-btn);
+}
+
+.orange-btn-save:hover {
+    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(234, 88, 12, 0.36);
+}
+
+/* Smartyy Routine Callout Box */
+.smartyy-routine-callout {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: #fff7ed;
+    border: 1.5px solid var(--theme-border);
+    border-radius: 14px;
+    margin-top: 10px;
+}
+
+.callout-icon {
+    font-size: 1.35rem;
+    line-height: 1;
+}
+
+.callout-content {
+    font-size: 0.86rem;
+    color: var(--theme-text-medium);
+    line-height: 1.55;
+}
+
+.callout-content strong {
+    color: var(--orange-text);
+}
+
+.smartyy-feedback-text {
+    min-height: 20px;
+    margin-top: 14px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--orange-hover);
+}
+
+/* =========================================================================
+   ENVIRONMENTAL HISTORY CHART (WARM ORANGE THEME)
+   ========================================================================= */
+.graph-legend-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.legend-pill {
+    padding: 5px 12px;
+    background: var(--theme-surface-elevated);
+    border: 1px solid var(--theme-border);
+    border-radius: var(--radius-pill);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--theme-text-medium);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-pill .dot-orange { width: 7px; height: 7px; border-radius: 50%; background: #ea580c; }
+.legend-pill .dot-azure  { width: 7px; height: 7px; border-radius: 50%; background: #0284c7; }
+.legend-pill .dot-amber  { width: 7px; height: 7px; border-radius: 50%; background: #f59e0b; }
+
+.smartyy-chart-wrap {
+    position: relative;
+    height: 380px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1.5px solid var(--theme-border-subtle);
+    border-radius: var(--radius-card);
+}
+
+/* =========================================================================
+   HISTORICAL LOG TABLE & CSV EXPORT
+   ========================================================================= */
+.orange-btn-export {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    background: #ffffff;
+    color: var(--orange-hover);
+    border: 1.5px solid var(--theme-border);
+    border-radius: var(--radius-button);
+    font-family: var(--font-brand);
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.orange-btn-export:hover {
+    background: var(--orange-soft);
+    border-color: var(--orange-primary);
+    transform: translateY(-1px);
+}
+
+.smartyy-table-wrap {
+    overflow-x: auto;
+    border: 1.5px solid var(--theme-border-subtle);
+    border-radius: var(--radius-card);
+    background: #ffffff;
+    max-height: 440px;
+}
+
+.smartyy-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    text-align: left;
+}
+
+.smartyy-table thead {
+    position: sticky;
+    top: 0;
+    background: #fff7ed;
+    z-index: 10;
+}
+
+.smartyy-table th {
+    padding: 14px 18px;
+    color: var(--orange-text);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1.5px solid var(--theme-border);
+}
+
+.smartyy-table td {
+    padding: 13px 18px;
+    color: var(--theme-text-high);
+    border-bottom: 1px solid var(--theme-border-subtle);
+}
+
+.smartyy-table tbody tr:hover {
+    background: #fffbf7;
+}
+
+/* =========================================================================
+   FOOTER (WARM LIGHT)
+   ========================================================================= */
+.smartyy-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 40px 20px 20px;
+    color: var(--theme-text-low);
+    font-size: 0.82rem;
+    text-align: center;
+    border-top: 1.5px solid var(--theme-border-subtle);
+}
+
+/* =========================================================================
+   KEYFRAME ANIMATIONS & RESPONSIVE BREAKPOINTS
+   ========================================================================= */
+@keyframes sFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sPulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.6; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .smartyy-header {
+        padding: 14px 20px;
+    }
+
+    .brand-sub,
+    .device-status-badge {
+        display: none;
+    }
+
+    .smartyy-main {
+        width: 94%;
+        margin-top: 18px;
+    }
+
+    .smartyy-panel {
+        padding: 20px;
+    }
+
+    .smartyy-chart-wrap {
+        height: 300px;
+    }
+
+    .threshold-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .threshold-input-group {
+        width: 100%;
+    }
+
+    .num-input-wrap,
+    .smartyy-input-num {
+        width: 100%;
+    }
+}

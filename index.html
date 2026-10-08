@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartyy — Firebase Smart Home</title>
+    <meta name="description" content="Smartyy: Light orange themed IoT dashboard combining Firebase and Smart Home for environmental monitoring and appliance automation.">
+    
+    <!-- Favicon: Firebase + Home SVG Hybrid -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M24 4L4 21.5C3.3 22.1 3 23 3 23.9V41C3 43.2 4.8 45 7 45H41C43.2 45 45 43.2 45 41V23.9C45 23 44.7 22.1 44 21.5L24 4Z' fill='%23FFF7ED' stroke='%23F97316' stroke-width='2'/><path d='M12.5 39.5L22.8 19.8C23.2 19 24.3 18.9 24.8 19.6L29 25.5L12.5 39.5Z' fill='%23FFA000'/><path d='M35.5 39.5L26.4 12.4C26 11.2 24.4 11.2 24 12.3L12.5 39.5H35.5Z' fill='%23F57C00'/><path d='M24.8 19.6L12.5 39.5H27.5L35.5 39.5L29 25.5L24.8 19.6Z' fill='%23FFCA28'/></svg>">
+
+    <!-- Fonts: Google Sans, Outfit, Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- =========================================================
+     SMARTYY AUTHENTICATION (LIGHT ORANGE THEME)
+     ========================================================= -->
+<div id="loginPage" class="login-container">
+    <div class="login-box">
+        <!-- Firebase Flame Accent Dots -->
+        <div class="firebase-dots">
+            <span class="f-dot f-red"></span>
+            <span class="f-dot f-deep-orange"></span>
+            <span class="f-dot f-orange"></span>
+            <span class="f-dot f-yellow"></span>
+        </div>
+
+        <div class="login-header">
+            <!-- Smartyy Logo: Firebase Flame x Smart Home Hybrid -->
+            <div class="smartyy-logo-badge">
+                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 4L4 21.5C3.3 22.1 3 23 3 23.9V41C3 43.2 4.8 45 7 45H41C43.2 45 45 43.2 45 41V23.9C45 23 44.7 22.1 44 21.5L24 4Z" fill="url(#loginHouseGrad)" stroke="#FDBA74" stroke-width="2"/>
+                    <path d="M13 39L22.6 20.3C23 19.5 24.1 19.4 24.6 20.1L28.8 26L13 39Z" fill="#FFA000"/>
+                    <path d="M35 39L26.2 12.8C25.8 11.7 24.2 11.7 23.8 12.8L13 39H35Z" fill="#F57C00"/>
+                    <path d="M24.6 20.1L13 39H27L35 39L28.8 26L24.6 20.1Z" fill="#FFCA28" opacity="0.95"/>
+                    <path d="M21 45V39C21 37.9 21.9 37 23 37H25C26.1 37 27 37.9 27 39V45" stroke="#F97316" stroke-width="2" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="loginHouseGrad" x1="24" y1="4" x2="24" y2="45" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FFF7ED"/>
+                            <stop stop-color="#FFEDD5"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h1>Smartyy</h1>
+            <p class="login-sub">Firebase Realtime Smart Home</p>
+        </div>
+
+        <div class="input-field">
+            <label for="email">Account Email</label>
+            <input type="email" id="email" placeholder="name@example.com" autocomplete="username">
+        </div>
+
+        <div class="input-field">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+
+        <button id="loginBtn" class="orange-btn-primary">
+            <span>Sign In to Smartyy</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+
+        <p id="loginMessage" class="status-msg"></p>
+
+        <div class="login-footer-pill">
+            <span class="flame-icon">🔥</span> Powered by Firebase Realtime Database
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     SMARTYY MAIN DASHBOARD (LIGHT ORANGE THEME)
+     ========================================================= -->
+<div id="dashboardPage" class="hidden">
+
+    <!-- Top Navigation App Bar -->
+    <header class="smartyy-header">
+        <div class="header-brand">
+            <!-- Smartyy Firebase x Home Hybrid Logo -->
+            <div class="brand-logo-wrap">
+                <svg width="34" height="34" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 4L4 21.5C3.3 22.1 3 23 3 23.9V41C3 43.2 4.8 45 7 45H41C43.2 45 45 43.2 45 41V23.9C45 23 44.7 22.1 44 21.5L24 4Z" fill="url(#headHouseGrad)" stroke="#FB923C" stroke-width="2"/>
+                    <path d="M13 39L22.6 20.3C23 19.5 24.1 19.4 24.6 20.1L28.8 26L13 39Z" fill="#FFA000"/>
+                    <path d="M35 39L26.2 12.8C25.8 11.7 24.2 11.7 23.8 12.8L13 39H35Z" fill="#F57C00"/>
+                    <path d="M24.6 20.1L13 39H27L35 39L28.8 26L24.6 20.1Z" fill="#FFCA28"/>
+                    <defs>
+                        <linearGradient id="headHouseGrad" x1="24" y1="4" x2="24" y2="45" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FFF7ED"/>
+                            <stop stop-color="#FFEDD5"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <div class="brand-title-row">
+                    <h1>Smartyy</h1>
+                    <span class="home-chip">🔥 Firebase Home</span>
+                </div>
+                <p class="brand-sub">Smart Room Hub · ESP32 Telemetry &amp; Actuation</p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <div class="device-status-badge">
+                <span class="pulse-dot"></span>
+                <span class="status-text">Hub Online</span>
+            </div>
+            <button id="logoutBtn" class="orange-btn-logout">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+                </svg>
+                <span>Sign Out</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="smartyy-main">
+
+        <!-- Warm Room Hero Banner -->
+        <div class="room-hero">
+            <div class="room-hero-info">
+                <div class="hero-chip-row">
+                    <span class="eyebrow-chip">🔥 FIREBASE SMART HOME</span>
+                    <span class="live-pill">Live RTDB Stream</span>
+                </div>
+                <h2>Smartyy Living Room Hub</h2>
+                <p>Real-time environmental diagnostics, adaptive lighting, and autonomous appliance control.</p>
+            </div>
+            <div class="room-quick-chips">
+                <span class="quick-chip chip-orange">DHT11 Temp/Hum</span>
+                <span class="quick-chip chip-amber">LDR Light ADC</span>
+                <span class="quick-chip chip-coral">5V Relay Active</span>
+            </div>
+        </div>
+
+        <!-- 1. LIVE SENSOR TILES -->
+        <section class="section-container">
+            <div class="section-head">
+                <div class="section-title-wrap">
+                    <span class="section-indicator"></span>
+                    <h3 class="section-title">Environmental Telemetry</h3>
+                </div>
+                <span class="section-badge">asia-southeast1</span>
+            </div>
+
+            <div class="cards smartyy-tile-grid">
+                <!-- Temperature -->
+                <div class="card smartyy-tile tile-temp">
+                    <div class="tile-top">
+                        <div class="tile-icon-wrap icon-temp">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4zm-4-8c0-.55.45-1 1-1s1 .45 1 1h-2z"/>
+                            </svg>
+                        </div>
+                        <span class="tile-label">Temperature</span>
+                    </div>
+                    <div class="tile-body">
+                        <div class="value"><span id="temperature">--</span><span class="unit">°C</span></div>
+                        <span class="tile-sub">DHT11 Precision Sensor</span>
+                    </div>
+                </div>
+
+                <!-- Humidity -->
+                <div class="card smartyy-tile tile-humidity">
+                    <div class="tile-top">
+                        <div class="tile-icon-wrap icon-hum">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                            </svg>
+                        </div>
+                        <span class="tile-label">Humidity</span>
+                    </div>
+                    <div class="tile-body">
+                        <div class="value"><span id="humidity">--</span><span class="unit">%</span></div>
+                        <span class="tile-sub">Relative Moisture</span>
+                    </div>
+                </div>
+
+                <!-- Ambient Light (LDR) -->
+                <div class="card smartyy-tile tile-ldr">
+                    <div class="tile-top">
+                        <div class="tile-icon-wrap icon-ldr">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1z"/>
+                            </svg>
+                        </div>
+                        <span class="tile-label">Ambient Light</span>
+                    </div>
+                    <div class="tile-body">
+                        <div class="value"><span id="ldr">--</span><span class="unit">ADC</span></div>
+                        <span class="tile-sub">LDR Photocell (0–4095)</span>
+                    </div>
+                </div>
+
+                <!-- Bulb State -->
+                <div class="card smartyy-tile tile-bulb" id="bulbCard">
+                    <div class="tile-top">
+                        <div class="tile-icon-wrap icon-bulb" id="bulbIconWrap">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
+                            </svg>
+                        </div>
+                        <span class="tile-label">Smart Bulb</span>
+                    </div>
+                    <div class="tile-body">
+                        <div class="value" id="bulbStatus">--</div>
+                        <span class="tile-sub">5V AC Relay Output</span>
+                    </div>
+                </div>
+
+                <!-- Operating Mode -->
+                <div class="card smartyy-tile tile-mode">
+                    <div class="tile-top">
+                        <div class="tile-icon-wrap icon-mode">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                            </svg>
+                        </div>
+                        <span class="tile-label">Operating Mode</span>
+                    </div>
+                    <div class="tile-body">
+                        <div class="value capitalize" id="modeDisplay">--</div>
+                        <span class="tile-sub">Automation State</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. APPLIANCE & AUTOMATION CONTROL PANEL -->
+        <section class="panel smartyy-panel">
+            <div class="panel-header-row">
+                <div class="panel-title-group">
+                    <div class="mini-icon-circle icon-orange-glow">🔥</div>
+                    <div>
+                        <h3 class="panel-title">Appliance &amp; Routine Controls</h3>
+                        <p class="panel-sub">Manage manual triggers and automated darkness thresholds</p>
+                    </div>
+                </div>
+                <span class="hub-pill">Firebase Sync</span>
+            </div>
+
+            <div class="control-grid">
+                <!-- Mode Selection -->
+                <div class="smartyy-control-card">
+                    <div class="card-meta">
+                        <span class="meta-title">Operating Mode</span>
+                        <span class="meta-desc">Switch between autonomous logic and manual control</span>
+                    </div>
+                    <div class="select-wrapper">
+                        <select id="modeSelect" class="smartyy-select">
+                            <option value="manual">Manual Mode</option>
+                            <option value="automatic">Automatic (Adaptive)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Manual Bulb Toggle -->
+                <div class="smartyy-control-card">
+                    <div class="card-meta">
+                        <span class="meta-title">Manual Bulb Switch</span>
+                        <span class="meta-desc">Direct relay toggle (active only in Manual Mode)</span>
+                    </div>
+                    <div class="smartyy-segmented-btns">
+                        <button id="bulbOnBtn" class="smartyy-btn-toggle btn-on">
+                            <span class="btn-dot"></span>
+                            <span>ON</span>
+                        </button>
+                        <button id="bulbOffBtn" class="smartyy-btn-toggle btn-off">
+                            <span class="btn-dot"></span>
+                            <span>OFF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Darkness Threshold Calibration -->
+                <div class="smartyy-control-card full-width-card">
+                    <div class="threshold-header">
+                        <div class="card-meta">
+                            <span class="meta-title">Light Threshold Calibration</span>
+                            <span class="meta-desc">Set the darkness level where bulb activates automatically</span>
+                        </div>
+                        <div class="threshold-input-group">
+                            <div class="num-input-wrap">
+                                <input type="number" id="thresholdInput" value="500" min="0" max="4095" class="smartyy-input-num">
+                                <span class="input-unit">ADC</span>
+                            </div>
+                            <button id="saveThresholdBtn" class="orange-btn-save">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                                    <polyline points="17 21 17 13 7 13 7 21"/>
+                                    <polyline points="7 3 7 8 15 8"/>
+                                </svg>
+                                <span>Save Threshold</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="smartyy-routine-callout">
+                        <div class="callout-icon">💡</div>
+                        <div class="callout-content">
+                            <strong>Smartyy Automation Rule:</strong> In <em>Automatic Mode</em>, the ESP32 turns the bulb <strong>ON</strong> if the LDR sensor reads &ge; threshold (darkness detected), and turns it <strong>OFF</strong> if LDR reading &lt; threshold (adequate daylight).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p id="controlMessage" class="smartyy-feedback-text"></p>
+        </section>
+
+        <!-- 3. ENVIRONMENTAL HISTORY CHART -->
+        <section class="panel smartyy-panel">
+            <div class="panel-header-row">
+                <div class="panel-title-group">
+                    <div class="mini-icon-circle icon-amber-glow">📈</div>
+                    <div>
+                        <h3 class="panel-title">Environmental History Graph</h3>
+                        <p class="panel-sub">Dual-axis streaming telemetry chart with warm flame gradient lines</p>
+                    </div>
+                </div>
+                <div class="graph-legend-pills">
+                    <span class="legend-pill pill-temp"><span class="dot-orange"></span> Temp (°C)</span>
+                    <span class="legend-pill pill-hum"><span class="dot-azure"></span> Humidity (%)</span>
+                    <span class="legend-pill pill-ldr"><span class="dot-amber"></span> Light (ADC)</span>
+                </div>
+            </div>
+
+            <div class="chart-container smartyy-chart-wrap">
+                <canvas id="historyChart"></canvas>
+            </div>
+        </section>
+
+        <!-- 4. HISTORICAL DATA TABLE & CSV EXPORT -->
+        <section class="panel smartyy-panel">
+            <div class="panel-header-row">
+                <div class="panel-title-group">
+                    <div class="mini-icon-circle icon-coral-glow">📊</div>
+                    <div>
+                        <h3 class="panel-title">Historical Log Data</h3>
+                        <p class="panel-sub">Recent time-series snapshots synchronized with Firebase RTDB</p>
+                    </div>
+                </div>
+                <button id="csvBtn" class="orange-btn-export">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    <span>Download CSV</span>
+                </button>
+            </div>
+
+            <div class="table-container smartyy-table-wrap">
+                <table class="smartyy-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Temperature</th>
+                            <th>Humidity</th>
+                            <th>LDR Light</th>
+                            <th>Bulb State</th>
+                            <th>Operating Mode</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTable"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="smartyy-footer">
+        <div class="footer-dots">
+            <span class="f-dot f-red"></span>
+            <span class="f-dot f-deep-orange"></span>
+            <span class="f-dot f-orange"></span>
+            <span class="f-dot f-yellow"></span>
+        </div>
+        <p>Smartyy · Firebase Smart Home Platform · ESP32 &amp; Google Firebase Realtime Database</p>
+    </footer>
+
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
